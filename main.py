@@ -14,7 +14,7 @@ def send_telegram_message():
     # TODO: change text
     payload = {
         "chat_id": chat_id,
-        "text": "https://safar724.com/bus/tehran-tabriz?date=1402-12-02"
+        "text": f"https://safar724.com/bus/tehran-tabriz?date=1402-12-02, {alert_info}"
     }
     try:
         requests.post(send_message_url, json=payload, timeout=2)
@@ -25,6 +25,7 @@ def send_telegram_message():
 url = 'https://safar724.com/bus/getservices?origin=11320000&destination=26310000&date=1402-12-02'
 response = requests.get(url)
 alert = False
+alert_info = ""
 
 if response.status_code == 200:
     data = response.json()
@@ -32,8 +33,9 @@ if response.status_code == 200:
         departure_time = int(item['DepartureTime'].split(':')[0])
         available_seat_count = item['AvailableSeatCount']
 
-        if (departure_time > 0) and (available_seat_count > 0):
-            print(item['DepartureTime'], item['AvailableSeatCount'])
+        if (departure_time > 19) and (available_seat_count > 0):
+            alert_info = f"DepartureTime: {item['DepartureTime']}, AvailableSeatCount: {item['AvailableSeatCount']}"
+            print(alert_info)
             alert = True
             break
 else:
