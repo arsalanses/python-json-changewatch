@@ -17,10 +17,10 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-# COPY requirements.txt .
+COPY requirements.txt .
 
-# RUN pip install --no-cache-dir --upgrade pip && \
-#     pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY ./main.py ./main.py
 COPY ./my-crontab ./my-crontab
