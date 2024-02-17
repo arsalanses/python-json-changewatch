@@ -1,0 +1,2 @@
+# Run every minute
+*/5 * * * * python /usr/src/app/main.py
