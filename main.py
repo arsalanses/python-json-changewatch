@@ -14,7 +14,7 @@ def send_telegram_message():
     # TODO: change text
     payload = {
         "chat_id": chat_id,
-        "text": f"https://safar724.com/bus/tehran-tabriz?date=1402-12-02, {alert_info}"
+        "text": f"https://safar724.com/bus/tabriz-tehran?date=1402-12-06, {alert_info}"
     }
     try:
         requests.post(send_message_url, json=payload, timeout=2)
@@ -22,7 +22,7 @@ def send_telegram_message():
         print("Timeout error")
 
 # TODO: change url
-url = 'https://safar724.com/bus/getservices?origin=11320000&destination=26310000&date=1402-12-02'
+url = 'https://safar724.com/bus/getservices?origin=26310000&destination=11320000&date=1402-12-06'
 response = requests.get(url)
 alert = False
 alert_info = ""
