@@ -9,13 +9,17 @@ ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.
 
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install curl -y && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install curl -y
 
 RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
  && chmod +x "$SUPERCRONIC" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
- && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
+ && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic \
+ && apt-get remove -y curl \
+ && apt-get autoremove -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 
