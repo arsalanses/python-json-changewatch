@@ -29,6 +29,7 @@ alert_info = ""
 
 if response.status_code == 200:
     data = response.json()
+    print(f"debug: len(Items): {len(data['Items'])}")
     for item in data['Items']:
         departure_time = int(item['DepartureTime'].split(':')[0])
         available_seat_count = item['AvailableSeatCount']
