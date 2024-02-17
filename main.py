@@ -1,31 +1,27 @@
 import requests
-import os
-# from dotenv import load_dotenv
+from os import getenv
 
-# load_dotenv()
-
-bot_token = os.getenv('BOT_TOKEN')
-chat_id = os.getenv('CHAT_ID')
+bot_token = getenv('BOT_TOKEN')
+chat_id = getenv('CHAT_ID')
+url_address = getenv('URL_ADDRESS')
+msg_url = getenv('MSG_URL')
 
 print(f"debug: bot_token: {bot_token}, chat_id: {chat_id}")
 
-def send_telegram_message():
+def send_telegram_message(text):
     send_message_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-    # TODO: change text
     payload = {
         "chat_id": chat_id,
-        "text": f"https://safar724.com/bus/tabriz-tehran?date=1402-12-06, {alert_info}"
+        "text": text
     }
     try:
         requests.post(send_message_url, json=payload, timeout=2)
     except requests.exceptions.Timeout:
         print("Timeout error")
 
-# TODO: change url
-url = 'https://safar724.com/bus/getservices?origin=26310000&destination=11320000&date=1402-12-06'
-response = requests.get(url)
-alert = False
+alert_flag = False
 alert_info = ""
+response = requests.get(url_address)
 
 if response.status_code == 200:
     data = response.json()
@@ -33,17 +29,16 @@ if response.status_code == 200:
     for item in data['Items']:
         departure_time = int(item['DepartureTime'].split(':')[0])
         available_seat_count = item['AvailableSeatCount']
-
         if (departure_time > 19) and (available_seat_count > 0):
             alert_info = f"DepartureTime: {item['DepartureTime']}, AvailableSeatCount: {item['AvailableSeatCount']}"
-            print(alert_info)
-            alert = True
+            alert_flag = True
             break
 else:
     print(f"Failed to retrieve data: {response.status_code}")
 
-if alert:
-    print("Fire alert")
-    send_telegram_message()
+if alert_flag:
+    msg = f"{alert_info}\n{msg_url}"
+    print(f"Fire alert {msg}")
+    send_telegram_message(msg)
 else:
     print("Nothing to fire")

@@ -22,3 +22,5 @@ services:
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
       - CHAT_ID=${CHAT_ID}
+      - URL_ADDRESS=${URL_ADDRESS}
+      - MSG_URL=${MSG_URL}
