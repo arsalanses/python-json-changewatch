@@ -87,7 +87,7 @@ func main() {
 		if (departureHour > 19) && (item.AvailableSeatCount > 0) {
 			postURL := os.Getenv("TELEGRAM_BASE")
 
-			text := fmt.Sprintf("AvailableSeatCount:%d, item.DepartureTime:%s", item.AvailableSeatCount, item.DepartureTime)
+			text := fmt.Sprintf("AvailableSeatCount:%d,\n DepartureTime:%s", item.AvailableSeatCount, item.DepartureTime)
 
 			payload := map[string]interface{}{
 				"chat_id": os.Getenv("CHAT_ID"),
