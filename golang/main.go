@@ -84,8 +84,6 @@ func main() {
 			return
 		}
 
-		fmt.Println(departureHour)
-
 		if (departureHour > 19) && (item.AvailableSeatCount > 0) {
 			postURL := os.Getenv("TELEGRAM_BASE")
 
