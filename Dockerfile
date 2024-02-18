@@ -1,19 +1,15 @@
-FROM debian:buster-slim as builder
-
-RUN apt-get update && apt-get install curl -y && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 FROM python:3.12.2-slim-bookworm
 
 ENV PYTHONUNBUFFERED 1
 
-ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.29/supercronic-linux-amd64 \
-    SUPERCRONIC=supercronic-linux-amd64 \
-    SUPERCRONIC_SHA1SUM=cd48d45c4b10f3f0bfdd3a57d054cd05ac96812b \
-    TZ=Asia/Tehran
+ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.29/supercronic-linux-amd64
+ENV SUPERCRONIC=supercronic-linux-amd64
+ENV SUPERCRONIC_SHA1SUM=cd48d45c4b10f3f0bfdd3a57d054cd05ac96812b
+ENV TZ=Asia/Tehran
 
 WORKDIR /usr/src/app
 
-COPY --from=builder /usr/bin/curl /usr/bin/curl
+RUN apt-get update && apt-get install curl -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
