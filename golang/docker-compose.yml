@@ -24,3 +24,4 @@ services:
       - CHAT_ID=${CHAT_ID}
       - URL_ADDRESS=${URL_ADDRESS}
       - MSG_URL=${MSG_URL}
+      - TELEGRAM_BASE=${TELEGRAM_BASE}

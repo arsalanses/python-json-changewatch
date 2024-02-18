@@ -87,11 +87,13 @@ func main() {
 		fmt.Println(departureHour)
 
 		if departureHour > 0 {
-			postURL := "https://httpbin.org/post"
+			postURL := os.Getenv("TELEGRAM_BASE")
+
+			text := fmt.Sprintf("AvailableSeatCount:%d, item.DepartureTime:%s", item.AvailableSeatCount, item.DepartureTime)
 
 			payload := map[string]interface{}{
-				"availableSeatCount": item.AvailableSeatCount,
-				"departureTime":      item.DepartureTime,
+				"chat_id": os.Getenv("CHAT_ID"),
+				"text":    text,
 			}
 
 			err := sendPostRequest(postURL, payload)
