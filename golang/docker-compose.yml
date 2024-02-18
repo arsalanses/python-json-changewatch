@@ -1,0 +1,26 @@
+services:
+  mybusgo:
+    build: .
+    restart: always
+    container_name: mybusgo
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # healthcheck:
+    #   test: ["CMD", "sh", "-c", "test -f /usr/src/app/main.py || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - CHAT_ID=${CHAT_ID}
+      - URL_ADDRESS=${URL_ADDRESS}
+      - MSG_URL=${MSG_URL}
