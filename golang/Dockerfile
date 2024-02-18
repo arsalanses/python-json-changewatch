@@ -31,7 +31,7 @@ WORKDIR /app/
 
 COPY --from=builder /app/app /app/app
 COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=certs ${SUPERCRONIC} ./supercronic
+COPY --from=certs --chmod=0755 ${SUPERCRONIC} ./supercronic
 
 COPY ./my-crontab ./my-crontab
 
@@ -39,8 +39,6 @@ COPY ./my-crontab ./my-crontab
 #  && chmod +x "$SUPERCRONIC" \
 #  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
 #  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
-
-RUN chmod +x ./supercronic
 
 # ENTRYPOINT ["/app/app"]
 CMD [ "./supercronic", "./my-crontab"]
