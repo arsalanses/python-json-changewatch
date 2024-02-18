@@ -20,8 +20,8 @@ ADD . .
 RUN GO111MODULE=on CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags="-s -w -X 'main.version=${APP_VERSION:-0.1.0}'" -o app main.go
 # RUN GO111MODULE=on CGO_ENABLED=0 go build -o app main.go
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} scratch
-# FROM --platform=${TARGETPLATFORM:-linux/amd64} debian:12-slim
+# FROM --platform=${TARGETPLATFORM:-linux/amd64} scratch
+FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.19.1
 
 ENV SUPERCRONIC=supercronic-linux-amd64
 ENV SUPERCRONIC_SHA1SUM=cd48d45c4b10f3f0bfdd3a57d054cd05ac96812b
