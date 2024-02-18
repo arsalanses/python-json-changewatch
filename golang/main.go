@@ -86,7 +86,7 @@ func main() {
 
 		fmt.Println(departureHour)
 
-		if departureHour > 0 {
+		if (departureHour > 19) && (item.AvailableSeatCount > 0) {
 			postURL := os.Getenv("TELEGRAM_BASE")
 
 			text := fmt.Sprintf("AvailableSeatCount:%d, item.DepartureTime:%s", item.AvailableSeatCount, item.DepartureTime)
