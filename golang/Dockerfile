@@ -31,14 +31,14 @@ WORKDIR /app/
 
 COPY --from=builder /app/app /app/app
 COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=certs ${SUPERCRONIC} ${SUPERCRONIC}
+COPY --from=certs ${SUPERCRONIC} ./supercronic
 
 COPY ./my-crontab ./my-crontab
 
-RUN echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
- && chmod +x "$SUPERCRONIC" \
- && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
- && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
+# RUN echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
+#  && chmod +x "$SUPERCRONIC" \
+#  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
+#  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 # ENTRYPOINT ["/app/app"]
-CMD [ "supercronic", "./my-crontab"]
+CMD [ "./supercronic", "./my-crontab"]
