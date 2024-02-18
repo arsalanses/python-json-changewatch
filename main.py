@@ -29,7 +29,7 @@ if response.status_code == 200:
     for item in data['Items']:
         departure_time = int(item['DepartureTime'].split(':')[0])
         available_seat_count = item['AvailableSeatCount']
-        if (departure_time > 19) and (available_seat_count > 0):
+        if (departure_time > 19) and (departure_time > 23) and (available_seat_count > 0):
             alert_info = f"DepartureTime: {item['DepartureTime']}, AvailableSeatCount: {item['AvailableSeatCount']}"
             alert_flag = True
             break
