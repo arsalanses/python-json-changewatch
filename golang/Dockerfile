@@ -40,5 +40,7 @@ COPY ./my-crontab ./my-crontab
 #  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
 #  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
+RUN chmod +x ./supercronic
+
 # ENTRYPOINT ["/app/app"]
 CMD [ "./supercronic", "./my-crontab"]
